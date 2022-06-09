@@ -1,0 +1,26 @@
+{% extends "padre.html" %}
+
+{%  load static %}
+
+
+{% block contenido %}
+
+<main>
+
+    {% if libros %}
+
+    <ul>
+    {% for libro in libros %}
+        <li>Nombre: {{libro.nombre}}</li>
+        <li>Autor: {{libro.autor}}</li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        <p>No se encontraron libros</p>
+    {% endif %}
+
+
+</main>
+
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "padre.html" %}
+
+{%  load static %}
+
+
+{% block contenido %}
+
+<main>
+
+  {% comment %} cuando se haga click en enviar, se va a enviar el formulario a "alta_lecturas", en el metodo {% endcomment %}
+  {% comment %} POST (la informacion va escondida dentro del paquete). Entonces el form va a ser enviado, y cuando  {% endcomment %}
+  {% comment %} llegue va a ser ejecturado de una determinada manera  {% endcomment %}
+
+  <form action="alta_lecturas" method="POST">
+    {% comment %} token obligatorio de python {% endcomment %}
+    {% csrf_token %}
+    <p>Nombre:</p>
+    <input type="text" name="nombre" required>
+    <p>Autor:</p>
+    <input type="text" name="autor" required>
+    <p>Estreno:</p>
+    <input type="date" name="año" required>
+   
+
+    <input type="submit" value="Enviar">
+
+
+  </form>
+</main>
+
+{% endblock %}
