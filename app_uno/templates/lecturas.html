@@ -1,14 +1,41 @@
-{% extends "padre.html" %}
+{% extends "index.html" %}
 
 {%  load static %}
 
 
 {% block contenido %}
+  
 
-<main>
-
-
-</main>
-
-
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Contenido</th>
+            <th scope="col">Fecha</th> 
+            <th scope="col">Libro</th>   
+            <th scope="col">Autor</th> 
+            <th scope="col">Lanzamiento</th>       
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+            {% for n in posts %}
+                <th scope="row">{{n.id}}</th>
+                <td>{{n.titulo}}</td>
+                <td>{{n.contenido}}</td>
+                <td>{{n.fecha}}</td>
+                <td>{{n.nombre_libro}}</td>
+                <td>{{n.autor}}</td>
+                <td>{{n.lanzamiento}}</td>             
+               <td><a href="{% url 'eliminar_post'  n.id %}">BORRAR</a></td>
+               <td><a href="{% url 'editar_post'  n.id %}">EDITAR</a></td>  
+            </tr>
+            {% endfor %}        
+        
+        </tbody>
+      </table>
+      <button>
+        <a href="alta_post">Agregar otro post</a>
+      </button>
 {% endblock %}

@@ -20,13 +20,10 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="#!">Start Bootstrap</a>
-                {% comment %} <a class="" href="{% url 'post' %}">Post</a>
-                <a class="" href="{% url 'pelicula' %}">Pelicula</a>
-                <a class="" href="{% url 'libro' %}">Libro</a> {% endcomment %}
-                <a class="btn btn-primary" href="#signup">Lecturas</a>
-                <a class="btn btn-primary" href="#signup">Peliculas</a>
-                <a class="btn btn-primary" href="#signup">Post</a>
+                <a class="navbar-brand" href="{%url 'index'%}">Inicio</a>
+                <a class="navbar-brand" href="{%url 'lecturas'%}">Lecturas</a>
+                <a class="navbar-brand" href="{%url 'alta_post'%}">Post</a>
+
             </div>
         </nav>
         <!-- Masthead-->

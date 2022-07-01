@@ -1,0 +1,36 @@
+{% extends  "index.html" %}
+
+
+{% load static %}
+
+
+
+{% block contenido %}
+    <form action="{% url 'editar_post' post.id %}" method="POST">
+        {% csrf_token %}
+       
+      <p>Fecha:</p>
+      {{mi_formulario.fecha}}
+
+      <p>Titulo:</p>
+      {{mi_formulario.titulo}}
+
+      <p>Contenido:</p>
+      {{mi_formulario.contenido}}
+
+      <p>Libro:</p>
+      {{mi_formulario.nombre_libro}}
+
+      <p>Autor:</p>
+      {{mi_formulario.autor}}
+
+      <p>Lanzamiento:</p>
+      {{mi_formulario.lanzamiento}}
+
+        <input type="submit" value="Enviar">
+
+
+    </form>
+
+
+{% endblock %}
