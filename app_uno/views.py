@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 # from Mi_primer_blog import app_unoc
 from app_uno.models import Post, Comentarios
-from app_uno.forms import Posteos_Form, CreateUserForm
+from app_uno.forms import Posteos_Form, CreateUserForm, UserEditForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm 
 from django.contrib.auth import login , authenticate
 from django.contrib.auth.decorators import login_required 
+from django.contrib.auth.models import User
 
 
 
@@ -199,6 +200,32 @@ def login_request(request):
         form = AuthenticationForm()
         return render(request, 'login.html', {'form': form})
     
+
     
     
     
+def editarPerfil(request):
+
+    usuario = request.user
+
+    if request.method == "POST":
+        
+        miFormulario = UserEditForm(request.POST)
+
+        if miFormulario.is_valid():
+
+            informacion = miFormulario.cleaned_data
+
+            usuario.email = informacion['email']
+            password = informacion['password1']
+            usuario.set_password(password)
+            usuario.save()
+
+            return render( request , "lecturas.html")
+
+    else:
+        miFormulario = UserEditForm(initial={'email':usuario.email})
+
+    return render( request , "editar_perfil.html" , {"miFormulario":miFormulario , "usuario":usuario})
+
+
