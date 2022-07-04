@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 # from Mi_primer_blog import app_unoc
 from app_uno.models import Post, Comentarios, Avatar
-from app_uno.forms import Posteos_Form, CreateUserForm, UserEditForm
+from app_uno.forms import Posteos_Form, CreateUserForm, UserEditForm, ComentariosForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm 
 from django.contrib.auth import login , authenticate
 from django.contrib.auth.decorators import login_required 
@@ -19,8 +19,6 @@ def avatares(request):
 def lecturas (request): 
     return render (request, "lecturas.html")
 
-def peliculas (request): 
-    return render (request, "peliculas.html")
 
 def post (request): 
     return render (request, "post.html")
@@ -31,14 +29,6 @@ def posts (request):
     return render (request, "lecturas.html", {"posts":posts })
 
  
-
-# def eliminar_post(request,id):
-#     post = Post.objects.get(id=id)
-#     post.delete()
-    
-#     post = Post.objects.all()
-    
-#     return render(request, 'eliminar_post.html', {'mensaje':f"Post eliminado correctamente"})
 @login_required
 def eliminar_post(request,id):
     post = Post.objects.get(id=id)
@@ -49,7 +39,7 @@ def eliminar_post(request,id):
     return render(request , "lecturas.html" , {"lecturas": post})
 
     
-    # return render(request, 'eliminar_post.html', {'mensaje':f"Post eliminado correctamente"})
+
 
 
 @login_required
@@ -80,7 +70,8 @@ def editar_post ( request , id):
 
 
 
-
+def about_page(request):
+    return render(request, 'About.html')
 
 
 
@@ -106,7 +97,7 @@ def alta_lecturas (request):
     
 
 
-
+@login_required
 def alta_post (request):
 
     if request.method == "POST":
@@ -233,3 +224,15 @@ def editarPerfil(request):
     return render( request , "editar_perfil.html" , {"miFormulario":miFormulario , "usuario":usuario})
 
 
+
+def comentar (request,id):
+    post=Post.objects.get(id=id)
+    comentarios = Comentarios.objects.filter(creado_en=post)
+    
+    crear_comentario=ComentariosForm(initial={'creado_por': request.user,'creado_en':post})
+    if request.method == 'POST':
+        crear_comentario=ComentariosForm(request.POST,initial={'creado_por': request.user,'creado_en':post})
+        crear_comentario.save()
+        return render(request, 'comentar.html', {'mensaje':f"Comentario creado correctamente","post":post,"comentarios":comentarios,"crear_comentario":crear_comentario})
+    else:
+        return render(request,'comentar.html',{'post':post,'comentarios':comentarios,'crear_comentario':crear_comentario})

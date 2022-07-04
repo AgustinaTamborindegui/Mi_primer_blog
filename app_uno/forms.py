@@ -1,6 +1,8 @@
 from django import forms 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Comentarios, Post
+from django.forms import ModelForm
    
 class Posteos_Form (forms.Form):
     titulo = forms.CharField(max_length=40)
@@ -9,6 +11,8 @@ class Posteos_Form (forms.Form):
     nombre_libro = forms.CharField(max_length=40)
     autor = forms.CharField(max_length=40)
     lanzamiento = forms.DateField()
+    
+   
     
 
 class CreateUserForm(UserCreationForm):
@@ -34,7 +38,14 @@ class UserEditForm(UserCreationForm):
 
     
 
-
+class ComentariosForm(ModelForm):
+    class Meta:
+        model = Comentarios
+        fields = "__all__"
+    def __init__(self, *args, **kwargs): 
+        super(ComentariosForm, self).__init__(*args, **kwargs)                       
+        self.fields['creado_en'].disabled = True
+        self.fields['creado_por'].disabled = True
 
 
 

@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+
+{%  load static %}
+
+
+{% block contenido %}
+
+{%if request.user.is_authenticated%}
+    <h3 style="color: green">
+        {{mensaje}}
+    </h3>
+    </form>
+        
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{crear_comentario.as_table}}
+        
+
+        
+            <input type="submit" value="Comentar" class="btn btn-secondary">
+        
+    </form>
+    
+{%endif%}
+
+Todos los comentarios:
+{%for i in comentarios%}
+<ul class="list-inline">
+    <li class="list-group-item comentarios">
+         <h4>
+            {{i}}
+        </h4>
+        
+        <div>
+            Creado por:
+            <h5 style="color: rgb(255, 72, 0)">
+                {{i.creado_por}}
+            </h5>
+            
+            a las:
+            <h5 style="color: orange">
+                {{i.creado}}
+            </h5>
+            
+        </div>
+    </li>
+    
+</ul>
+
+{% endfor %}
+
+{% endblock %} 

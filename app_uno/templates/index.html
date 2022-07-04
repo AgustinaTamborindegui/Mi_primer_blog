@@ -22,6 +22,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{%url 'index'%}">Inicio</a>
                 <a class="navbar-brand" href="{%url 'lecturas'%}">Lecturas</a>
+                {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'About' %}">About</a></li> {% endcomment %}
 
                 {% if not request.user.is_authenticated %}
                 <a class="navbar-brand" href="{%url 'login'%}">Ingresar</a>
@@ -51,7 +52,7 @@
                     <div class="col-xl-6">
                         <div class="text-center text-white">
                             <!-- Page heading-->
-                            <h1 class="mb-5">Generate more leads with a professional landing page!</h1>
+                            <h1 class="mb-5">Blog de libros.</h1>
                             <!-- Signup form-->
                             <!-- * * * * * * * * * * * * * * *-->
                             <!-- * * SB Forms Contact Form * *-->
@@ -105,19 +106,18 @@
                 <div class="row">
                     <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
                         <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Contact</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+
+
+                            <li class="list-inline-item"><a href="{% url 'About' %}">Acerca de mi</a></li>  
+                            
+
+
                         </ul>
-                        <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2022. All Rights Reserved.</p>
+                        <p class="text-muted small mb-4 mb-lg-0">&copy; Curso de Python - CoderHouse.</p>
                     </div>
-                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                     <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
                         <ul class="list-inline mb-0">
-                            <li class="list-inline-item me-4">
+                           <li class="list-inline-item me-4">
                                 <a href="#!"><i class="bi-facebook fs-3"></i></a>
                             </li>
                             <li class="list-inline-item me-4">
@@ -125,9 +125,9 @@
                             </li>
                             <li class="list-inline-item">
                                 <a href="#!"><i class="bi-instagram fs-3"></i></a>
-                            </li>
+                            </li> 
                         </ul>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </footer>
