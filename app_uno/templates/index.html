@@ -37,6 +37,11 @@
 
                 {% endif %}
 
+                {% if  request.user.is_authenticated %}
+                <img src="{{ url }}" alt="">
+                <p class="text-muted small mb-4">Bienvenido/a, {{user.username}} </p>
+                {% endif %}
+
             </div>
         </nav>
         <!-- Masthead-->

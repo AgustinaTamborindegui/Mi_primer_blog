@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 # from Mi_primer_blog import app_unoc
-from app_uno.models import Post, Comentarios
+from app_uno.models import Post, Comentarios, Avatar
 from app_uno.forms import Posteos_Form, CreateUserForm, UserEditForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm 
 from django.contrib.auth import login , authenticate
@@ -11,19 +11,18 @@ from django.contrib.auth.models import User
 
 
 def index(request):
-
     return render( request , "index.html" )
 
+def avatares(request):
+    return render( request , "avatares.html" )
+
 def lecturas (request): 
-    
     return render (request, "lecturas.html")
 
 def peliculas (request): 
-    
     return render (request, "peliculas.html")
 
 def post (request): 
-    
     return render (request, "post.html")
 
 def posts (request): 
@@ -184,10 +183,15 @@ def login_request(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
+            
             if user is not None:
                 login(request, user)
-                lecturas = Post.objects.all()
-                return render(request, 'inicio.html', {'mensaje':f"Bienvenido/a {username}",'lecturas':lecturas})
+                
+                avatares = Avatar.objects.filter(user=request.user.id)
+                return render( request , "inicio.html" ,{"url":avatares[0].imagen.url} )
+                
+                # lecturas = Post.objects.all()
+                # return render(request, 'inicio.html', {'mensaje':f"Bienvenido/a {username}",'lecturas':lecturas})
             
             else:
                 form=AuthenticationForm()
