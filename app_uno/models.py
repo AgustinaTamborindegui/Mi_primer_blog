@@ -21,4 +21,8 @@ class Comentarios(models.Model):
     def __str__(self):
         return self.comentario
     
+class Avatar(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='avatares' , null=True , blank=True)
+    
 

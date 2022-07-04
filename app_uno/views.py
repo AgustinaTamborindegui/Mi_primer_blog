@@ -187,7 +187,7 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 lecturas = Post.objects.all()
-                return render(request, 'lecturas.html', {'mensaje':f"Bienvenido/a {username}",'lecturas':lecturas})
+                return render(request, 'inicio.html', {'mensaje':f"Bienvenido/a {username}",'lecturas':lecturas})
             
             else:
                 form=AuthenticationForm()
