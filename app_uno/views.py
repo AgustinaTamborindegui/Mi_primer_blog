@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+# from Mi_primer_blog import app_unoc
 from app_uno.models import Post, Comentarios
-from app_uno.forms import Posteos_Form
-# from mi_blog.app_uno.models import Pelicula
+from app_uno.forms import Posteos_Form, CreateUserForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm 
+from django.contrib.auth import login , authenticate
+from django.contrib.auth.decorators import login_required 
+
 
 
 def index(request):
@@ -26,7 +30,7 @@ def posts (request):
     posts = lista_posts
     return render (request, "lecturas.html", {"posts":posts })
 
-
+ 
 
 # def eliminar_post(request,id):
 #     post = Post.objects.get(id=id)
@@ -35,7 +39,7 @@ def posts (request):
 #     post = Post.objects.all()
     
 #     return render(request, 'eliminar_post.html', {'mensaje':f"Post eliminado correctamente"})
-
+@login_required
 def eliminar_post(request,id):
     post = Post.objects.get(id=id)
     post.delete()
@@ -48,7 +52,7 @@ def eliminar_post(request,id):
     # return render(request, 'eliminar_post.html', {'mensaje':f"Post eliminado correctamente"})
 
 
-
+@login_required
 def editar_post ( request , id):
 
     post = Post.objects.get(id=id)
@@ -134,3 +138,67 @@ def buscar(request):
         return render( request , "resultado_busqueda.html" , {"libros": libros})
     else:
         return HttpResponse("Campo vacio")
+    
+    
+    
+    
+def register(request):
+
+    if request.method == "POST":
+        
+        form = CreateUserForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
+            return HttpResponse("Usuario creado")
+
+
+    else:
+        form = UserCreationForm()
+    return render( request , "registro.html" , {"form":form})
+
+# def registro(request):
+#     if request.method == 'POST':
+#         form = RegistroForm(request.POST)
+        
+#         if form.is_valid() :
+#             form.save()
+            
+#             return render(request, 'index.html', {'mensaje':f"Usuario creado correctamente"})
+#         else:
+#             form=RegistroForm()
+            
+#             return render(request, 'registro.html', {'mensaje':f"Datos Incorrectos","form":form})
+#     else:
+#         form = RegistroForm()
+    
+    
+    
+    
+def login_request(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data = request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                lecturas = Post.objects.all()
+                return render(request, 'lecturas.html', {'mensaje':f"Bienvenido/a {username}",'lecturas':lecturas})
+            
+            else:
+                form=AuthenticationForm()
+                return render(request, 'login.html', {'mensaje':f"Datos Incorrectos", "form":form})
+        else:
+            form=AuthenticationForm()
+            return render(request, 'login.html', {'mensaje':f"Datos Incorrectos", "form":form})
+        #revisar porque no me carga el ultimo form "form":form
+    else:
+        form = AuthenticationForm()
+        return render(request, 'login.html', {'form': form})
+    
+    
+    
+    
