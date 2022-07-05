@@ -63,6 +63,7 @@ def editar_post ( request , id):
             post = Post.objects.all()          
             return render(request , "lecturas.html" , {"lecturas": post})
         
+        
     else:
         mi_formulario = Posteos_Form(initial={'titulo':post.titulo , "contenido":post.contenido, 'fecha':post.fecha, 'nombre_libro':post.nombre_libro, 'autor':post.autor, 'lanzamiento':post.lanzamiento})
         
@@ -71,7 +72,7 @@ def editar_post ( request , id):
 
 
 def about_page(request):
-    return render(request, 'About.html')
+    return render(request, 'about.html')
 
 
 
